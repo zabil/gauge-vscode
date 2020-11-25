@@ -1,7 +1,8 @@
 'use strict';
 
 import { ChildProcess, spawn } from 'child_process';
-import { platform } from 'os';
+import { platform, EOL } from 'os';
+
 import {
     CancellationTokenSource, commands, Disposable, Position,
     StatusBarAlignment, Uri, window, DebugSession, env
@@ -73,7 +74,7 @@ export class GaugeExecutor extends Disposable {
                     this.childProcess = spawn(cmd, args, options);
                     this.childProcess.stdout.on('data', this.filterStdoutDataDumpsToTextLines((lineText: string) => {
                         chan.appendOutBuf(lineText);
-                        lineText.split("\n").forEach((lineText) => {
+                        lineText.split(EOL).forEach((lineText) => {
                             this.processors.forEach((p) => p.process(lineText, this.gaugeDebugger));
                         });
                     }));
