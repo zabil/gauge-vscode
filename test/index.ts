@@ -5,7 +5,7 @@ import * as glob from 'glob';
 export function run(testsRoot: string, cb: (error: any, failures?: number) => void): void {
     // Create the mocha test
     const mocha = new Mocha({
-        ui: 'tdd', color: true,
+        ui: 'tdd',
     });
 
     glob('**/**.test.js', { cwd: testsRoot }, (err, files) => {
